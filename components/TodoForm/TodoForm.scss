@@ -1,0 +1,29 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer components {
+  .app__form {
+    @apply my-4 w-full md:w-3/5 mx-auto flex-col p-4 ring-2 ring-gray-300 rounded-lg;
+
+    .app__form-todo {
+      @apply w-full relative;
+
+      .app__form-todo-input {
+        @apply relative w-full p-3 border-none rounded-lg outline-none font-roboto text-black;
+      }
+
+      .error {
+        @apply absolute right-2 bg-red-700 rounded-lg p-2 text-white;
+      }
+    }
+
+    .app__form-todo-button {
+      @apply my-4 w-full;
+
+      button {
+        @apply bg-white py-2 px-4 mx-2 rounded-lg font-semibold border-none font-oswald tracking-wide transition-all duration-200 ease-in-out outline-none w-full md:w-1/3 hover:bg-col-sky active:bg-col-darkBlue even:ring-1 even:ring-white even:bg-transparent even:text-white even:hover:ring-0 even:hover:bg-col-darkBlue;
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer components {
+  .todo-row {
+    @apply justify-between bg-col-sky rounded-lg p-4 my-4 mx-auto w-full md:w-3/5 shadow-md shadow-col-sky;
+  }
+
+  .complete {
+    @apply backdrop-blur-sm bg-black/10 text-gray-300 line-through shadow-md shadow-black/10;
+  }
+
+  .app__todo-list-item {
+    @apply cursor-pointer;
+  }
+
+  .todos-item {
+    @apply w-full flex items-center justify-between;
+  }
+
+  .icons {
+    @apply space-x-4 p-2;
+
+    svg {
+      @apply text-gray-200 cursor-pointer;
+    }
+  }
+}

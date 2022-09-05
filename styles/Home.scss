@@ -1,0 +1,17 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer components {
+  .app {
+    @apply bg-gray-600 w-full text-center p-4 min-h-screen;
+  }
+
+  .app__flex {
+    @apply flex justify-center items-center;
+  }
+
+  .head-text {
+    @apply font-semibold text-2xl text-gray-200 font-catamaran;
+  }
+}

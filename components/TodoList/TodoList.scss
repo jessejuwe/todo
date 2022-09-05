@@ -1,0 +1,13 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer components {
+  .app__todo-list {
+    @apply p-2;
+
+    h1 {
+      @apply text-gray-200 font-squarePeg text-3xl font-medium;
+    }
+  }
+}
