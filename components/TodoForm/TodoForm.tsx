@@ -7,17 +7,7 @@ interface MyFormValues {
   text: string;
 }
 
-interface Data {
-  id: string;
-  text: string;
-  isComplete: boolean;
-}
-
-type Props = {
-  // onSubmit: ({}: Data) => void;
-  // onDelete?: (id: string) => void;
-  edit?: { id: string | null; value: string | null };
-};
+type Props = {};
 
 const TodoForm: React.FC<Props> = props => {
   const ctx = useContext(TodoContext);
@@ -25,23 +15,6 @@ const TodoForm: React.FC<Props> = props => {
   const initialValues: MyFormValues = { text: '' };
 
   const deleteTodos = () => ctx?.deleteTodos('todos');
-
-  // const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setInput(e.target.value);
-  // };
-
-  // const submitHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   e.preventDefault();
-
-  //   props.onSubmit({
-  //     id: `${Math.floor(Math.random() * 10000)}`,
-  //     text: input,
-  //     isComplete: false
-  //   });
-
-  //   setInput('');
-  // };
-
   return (
     <Fragment>
       <Formik
@@ -56,13 +29,7 @@ const TodoForm: React.FC<Props> = props => {
           return errors;
         }}
         onSubmit={(values, actions) => {
-          console.log(values);
-
-          ctx?.addTodo({
-            id: `${Math.floor(Math.random() * 10000)}`,
-            text: values.text,
-            isComplete: false,
-          });
+          ctx?.addTodo(values.text);
 
           actions.setSubmitting(false);
           actions.resetForm();

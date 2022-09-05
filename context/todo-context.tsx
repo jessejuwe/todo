@@ -1,116 +1,111 @@
 import React, { useState, useEffect } from 'react';
-
-interface Todo {
-  id: string;
-  text: string;
-  isComplete: boolean;
-}
+import Todo from '../models/todo';
 
 interface TodoContextObj {
   todos: Todo[];
-  edit?: { id: string | null; value: string | null };
-  isClicked: boolean;
-  addTodo: (todo: Todo) => void;
+  editTodo: (id: string) => void;
+  addTodo: (todo: string) => void;
   removeTodo: (id: string) => void;
   completeTodo: (id: string) => void;
-  updateTodo: (id: string, todo: Todo) => void;
+  updateTodo: (id: string, value: string) => void;
   deleteTodos: (key: string) => void;
-  setClicked: (state: boolean) => void;
-}
-
-interface InitialState {
-  id: string | null;
-  value: string | null;
 }
 
 export const TodoContext = React.createContext<TodoContextObj | null>({
   todos: [],
-  edit: { id: '', value: '' },
-  isClicked: false,
-  addTodo: (todo: Todo) => {},
+  editTodo: (id: string) => {},
+  addTodo: (todo: string) => {},
   removeTodo: (id: string) => {},
   completeTodo: (id: string) => {},
-  updateTodo: (id: string, todo: Todo) => {},
+  updateTodo: (id: string, value: string) => {},
   deleteTodos: (key: string) => {},
-  setClicked: (state: boolean) => {},
 });
 
 type Props = { children: React.ReactNode };
 
-const initialValue: InitialState = { id: null, value: '' };
-
 const ContextProvider: React.FC<Props> = props => {
   const [todos, setTodos] = useState<Array<Todo>>([]);
-  const [edit, setEdit] = useState(initialValue);
-  const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
     const data = localStorage.getItem('todos');
-
-    if (data) setTodos(JSON.parse(data));
+    if (!data) return;
+    const todos: Todo[] = JSON.parse(data);
+    setTodos(todos);
 
     return () => {};
   }, []);
 
-  const setClicked = (state: boolean) => setIsClicked(state);
-
-  const addTodo = (todo: Todo) => {
-    // Guard Clause
-    if (!todo.text || /^\s*$/.test(todo.text)) return;
-
-    const newTodos = [...todos, todo];
-
-    setTodos(newTodos);
-    setIsClicked(false);
-
-    localStorage.setItem('todos', JSON.stringify(newTodos));
+  const modifyLocalStorage = (key: string, value: Todo[]) => {
+    localStorage.removeItem(key);
+    localStorage.setItem(key, JSON.stringify(value));
   };
 
-  const updateTodo = (id: string, value: Todo) => {
+  const addTodo = (todo: string) => {
     // Guard Clause
-    if (!value.text || /^\s*$/.test(value.text)) return;
+    if (!todo || /^\s*$/.test(todo)) return;
 
-    if (edit.id) setEdit({ id: value.id, value: value.text });
+    const newTodo = [...todos, new Todo(todo)];
+    setTodos(newTodo);
 
-    localStorage.removeItem('todos');
+    localStorage.setItem('todos', JSON.stringify(newTodo));
+  };
 
-    setTodos(prev => prev.map(item => (item.id === id ? value : item)));
-    setIsClicked(false);
+  const editTodo = (id: string) => {
+    let updatedTodo = todos.map(todo => {
+      if (todo.id === id) todo.isActive = !todo.isActive;
+      return todo;
+    });
 
-    localStorage.setItem('todos', JSON.stringify(todos));
+    setTodos(updatedTodo);
+  };
+
+  const updateTodo = (id: string, value: string) => {
+    // Guard Clause
+    if (!value || /^\s*$/.test(value)) return;
+
+    let updatedTodo = todos.map(todo => {
+      if (todo.id === id) {
+        todo.text = value;
+        todo.isActive = !todo.isActive;
+      }
+      return todo;
+    });
+
+    setTodos(updatedTodo);
+
+    modifyLocalStorage('todos', todos);
   };
 
   const removeTodo = (id: string) => {
     const updatedTodo = [...todos].filter(todo => todo.id !== id);
 
-    localStorage.removeItem('todos');
     setTodos(updatedTodo);
-    localStorage.setItem('todos', JSON.stringify(updatedTodo));
+    modifyLocalStorage('todos', updatedTodo);
   };
 
   const completeTodo = (id: string) => {
-    let updateTodos = todos.map(todo => {
+    let updatedTodo = todos.map(todo => {
       if (todo.id === id) todo.isComplete = !todo.isComplete;
       return todo;
     });
 
-    setTodos(updateTodos);
+    setTodos(updatedTodo);
+    modifyLocalStorage('todos', updatedTodo);
   };
 
   const deleteTodos = (key: string) => {
-    localStorage.removeItem(key);
     setTodos([]);
+    localStorage.removeItem(key);
   };
 
   const contextValue: TodoContextObj = {
     todos,
-    isClicked,
+    editTodo,
     addTodo,
     removeTodo,
     completeTodo,
     updateTodo,
     deleteTodos,
-    setClicked,
   };
 
   return (

@@ -23,7 +23,7 @@
     }
 
     .app__todo-update-form-todo-button {
-      @apply w-2/5 md:w-1/5;
+      @apply w-3/6 md:w-1/5;
 
       button {
         @apply bg-white py-1 px-2 md:py-2 md:px-4 rounded-sm font-semibold border-none font-oswald tracking-wide transition-all duration-200 ease-in-out outline-none w-full hover:bg-col-sky active:bg-col-darkBlue even:ring-1 even:ring-white even:bg-transparent even:text-white even:hover:ring-0 even:hover:bg-col-darkBlue text-sm md:text-base;

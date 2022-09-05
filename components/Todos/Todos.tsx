@@ -6,25 +6,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { TodoContext } from '../../context/todo-context';
 import TodoUpdateForm from '../TodoUpdateForm/TodoUpdateForm';
 
-interface Todo {
-  id: string;
-  text: string;
-  isComplete: boolean;
-}
-
 type Props = {};
 
 const Todos: React.FC<Props> = props => {
   const ctx = useContext(TodoContext);
-
-  const updateForm = <TodoUpdateForm />;
-
-  const editTodo = (value: Todo) => {
-    ctx?.setClicked(true);
-
-    const updatedTodo = ctx?.todos.filter(todo => todo.id === value.id);
-    console.log(updatedTodo);
-  };
 
   const completeTodo = (todo: string) => ctx?.completeTodo(todo);
   const removeTodo = (todo: string) => ctx?.removeTodo(todo);
@@ -47,10 +32,10 @@ const Todos: React.FC<Props> = props => {
                 todo.isComplete ? 'todo-row complete' : 'todo-row'
               } app__flex`}
             >
-              {ctx.isClicked ? (
-                updateForm
+              {todo.isActive ? (
+                <TodoUpdateForm id={todo.id} />
               ) : (
-                <div key={todo.id} className="todos-item">
+                <div key={index} className="todos-item">
                   <div
                     key={todo.id}
                     onClick={() => completeTodo(todo.id)}
@@ -74,7 +59,7 @@ const Todos: React.FC<Props> = props => {
                     />
                     <TiEdit
                       className="edit-icon"
-                      onClick={() => editTodo(todo)}
+                      onClick={() => ctx.editTodo(todo.id)}
                     />
                   </motion.div>
                 </div>

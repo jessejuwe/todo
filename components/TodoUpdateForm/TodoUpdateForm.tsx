@@ -8,16 +8,12 @@ interface MyFormValues {
   text: string;
 }
 
-type Props = {};
+type Props = { id: string };
 
 const TodoUpdateForm: React.FC<Props> = props => {
   const ctx = useContext(TodoContext);
 
   const initialValues: MyFormValues = { text: '' };
-
-  const updateTodo = () => {
-    ctx?.setClicked(false);
-  };
 
   return (
     <Fragment>
@@ -33,16 +29,6 @@ const TodoUpdateForm: React.FC<Props> = props => {
           return errors;
         }}
         onSubmit={(values, actions) => {
-          console.log(values);
-
-          const newTodo = {
-            id: `${Math.floor(Math.random() * 10000)}`,
-            text: values.text,
-            isComplete: false,
-          };
-
-          if (ctx?.edit?.id) ctx?.updateTodo(ctx?.edit?.id, newTodo);
-
           actions.setSubmitting(false);
           actions.resetForm();
         }}
@@ -65,8 +51,8 @@ const TodoUpdateForm: React.FC<Props> = props => {
 
               <div className="app__todo-update-form-todo-button">
                 <button
-                  type="button"
-                  onClick={updateTodo}
+                  type="submit"
+                  onClick={() => ctx?.updateTodo(props.id, values.text)}
                   disabled={isSubmitting}
                 >
                   Update Todo
