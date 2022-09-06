@@ -4,7 +4,7 @@
 
 @layer components {
   .app {
-    @apply bg-[#161a2b] w-full text-center p-4 min-h-screen;
+    @apply bg-[#161a2b] w-full text-center p-4 min-h-[600px];
   }
 
   .app__flex {
