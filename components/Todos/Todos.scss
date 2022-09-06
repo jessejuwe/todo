@@ -4,26 +4,48 @@
 
 @layer components {
   .todo-row {
-    @apply justify-between bg-col-sky rounded-lg p-4 my-4 mx-auto w-full md:w-3/5 shadow-md shadow-col-sky;
+    @apply justify-between bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-lg p-4 my-4 mx-auto w-full md:w-3/5 shadow-sm;
   }
 
-  .complete {
-    @apply backdrop-blur-sm bg-black/10 text-gray-300 line-through shadow-md shadow-black/10;
+  .todo-row:nth-child(4n + 1) {
+    @apply bg-gradient-to-r from-cyan-500 to-blue-500;
   }
 
-  .app__todo-list-item {
-    @apply cursor-pointer;
+  .todo-row:nth-child(4n + 2) {
+    @apply bg-gradient-to-r from-pink-500 to-purple-500;
+  }
+
+  .todo-row:nth-child(4n + 3) {
+    @apply from-sky-500 to-indigo-500;
+  }
+
+  .todo-row.complete {
+    @apply bg-gradient-to-r from-gray-500 to-gray-700;
+
+    .app__todo-list-item {
+      @apply opacity-30 line-through text-gray-200 italic;
+    }
+
+    .app__todo-icons {
+      svg {
+        @apply opacity-30 first:hover:text-red-500 last:hover:text-green-500;
+      }
+    }
   }
 
   .todos-item {
     @apply w-full flex items-center justify-between;
   }
 
-  .icons {
-    @apply space-x-4 p-2;
+  .app__todo-list-item {
+    @apply cursor-pointer font-semibold font-catamaran tracking-wide text-gray-200 transition-all duration-300 ease-in-out hover:animate-pulse;
+  }
+
+  .app__todo-icons {
+    @apply p-2;
 
     svg {
-      @apply text-gray-200 cursor-pointer;
+      @apply text-gray-200 cursor-pointer font-semibold text-lg mx-2 first:hover:text-red-700 last:hover:text-green-700 transition-all duration-300 ease-in-out hover:animate-bump;
     }
   }
 }

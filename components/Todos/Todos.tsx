@@ -51,7 +51,7 @@ const Todos: React.FC<Props> = props => {
                       ease: 'easeInOut',
                       delayChildren: 0.5,
                     }}
-                    className="icons app__flex"
+                    className="app__todo-icons app__flex"
                   >
                     <RiCloseCircleLine
                       className="delete-icon"

@@ -14,7 +14,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/todo.ico" />
       </Head>
 
-      <main className="">
+      <main className="container">
         <h1 className="head-text">Todo App</h1>
         <TodoList />
       </main>

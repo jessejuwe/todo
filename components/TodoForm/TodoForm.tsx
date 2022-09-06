@@ -1,5 +1,5 @@
-import React, { useContext, Fragment } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import React, { Fragment, useContext, useEffect, useRef } from 'react';
+import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik';
 
 import { TodoContext } from '../../context/todo-context';
 
@@ -11,6 +11,12 @@ type Props = {};
 
 const TodoForm: React.FC<Props> = props => {
   const ctx = useContext(TodoContext);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+    return () => {};
+  }, []);
 
   const initialValues: MyFormValues = { text: '' };
 
@@ -20,11 +26,9 @@ const TodoForm: React.FC<Props> = props => {
       <Formik
         initialValues={initialValues}
         validate={values => {
-          const errors: any = {};
+          const errors: FormikErrors<MyFormValues> = {};
 
-          if (!values.text) {
-            errors.text = 'Required';
-          }
+          if (!values.text) errors.text = 'Required';
 
           return errors;
         }}
@@ -46,8 +50,9 @@ const TodoForm: React.FC<Props> = props => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.text}
+                innerRef={inputRef}
               />
-              <ErrorMessage name="todo" component="div" className="error" />
+              <ErrorMessage name="text" component="div" className="error" />
             </div>
 
             <div className="app__form-todo-button app__flex">

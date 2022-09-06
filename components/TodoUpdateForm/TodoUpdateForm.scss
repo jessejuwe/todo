@@ -11,14 +11,14 @@
     @apply w-full mx-auto p-4 rounded-lg bg-col-darkBlue space-x-2;
 
     .app__todo-update-form-todo {
-      @apply w-full relative text-sm;
+      @apply w-full relative;
 
       .app__todo-update-form-todo-input {
-        @apply relative w-full p-1 md:p-3 border-none rounded-sm outline-none font-roboto text-black;
+        @apply w-full p-1 md:p-3 border-none rounded-sm outline-none font-roboto text-black;
       }
 
       .error {
-        @apply absolute right-2 bg-red-700 rounded-lg p-2 text-white;
+        @apply absolute right-1 bg-red-700 rounded-md p-1 md:p-2 text-white text-xs md:text-sm font-roboto;
       }
     }
 
@@ -26,7 +26,7 @@
       @apply w-3/6 md:w-1/5;
 
       button {
-        @apply bg-white py-1 px-2 md:py-2 md:px-4 rounded-sm font-semibold border-none font-oswald tracking-wide transition-all duration-200 ease-in-out outline-none w-full hover:bg-col-sky active:bg-col-darkBlue even:ring-1 even:ring-white even:bg-transparent even:text-white even:hover:ring-0 even:hover:bg-col-darkBlue text-sm md:text-base;
+        @apply bg-transparent hover:bg-white text-white hover:text-col-darkBlue ring-1 ring-white hover:ring-0 py-1 px-2 md:py-2 md:px-4 rounded-lg font-semibold border-none font-oswald tracking-wide transition-all duration-200 ease-in-out outline-none w-full active:bg-col-sky active:text-col-darkBlue text-sm md:text-base;
       }
     }
   }
