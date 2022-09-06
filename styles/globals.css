@@ -25,7 +25,7 @@
 
   html,
   body {
-    @apply p-0 m-0 min-h-screen bg-col-darkBlue;
+    @apply p-0 m-0 min-h-[600px] bg-col-darkBlue;
   }
 
   a {
