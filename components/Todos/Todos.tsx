@@ -21,6 +21,7 @@ const Todos: React.FC<Props> = props => {
           return (
             <motion.div
               key={index}
+              initial={{ opacity: 0, x: -100 }}
               whileInView={{ x: [-100, 0], opacity: [0, 1] }}
               exit={{ x: [0, 20], opacity: [1, 0] }}
               transition={{
